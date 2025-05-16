@@ -4,7 +4,7 @@ function App() {
 
   return (
     <>
-      {/* Add your component here */}
+      <h1>Hello, React!</h1>
     </>
   )
 }
