@@ -1,7 +1,14 @@
 import React from "react";
 
 function Ques_2() {
-  const currentYear = new Date().getFullYear();
+  let currentYear;
+
+  try {
+    currentYear = new Date().getFullYear();
+  } catch (error) {
+    console.error("Error getting current year:", error);
+    currentYear = "Unavailable";
+  }
 
   return (
     <div>
@@ -11,3 +18,4 @@ function Ques_2() {
 }
 
 export default Ques_2;
+
