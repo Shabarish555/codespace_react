@@ -1,5 +1,23 @@
-// Text Input and Display
-// Description: Create a React component that allows users to input text in a textbox and displays the input below the textbox.
+import React, { useState } from "react";
 
-// Steps:
-//     - Write your code within the file, by the name of component as Text_Input
+function Ques_2_Text_Input_and_Display() {
+  const [text, setText] = useState("");
+
+  const handleChange = (e) => {
+    setText(e.target.value);
+  };
+
+  return (
+    <div>
+      <input
+        type="text"
+        placeholder="Type here..."
+        value={text}
+        onChange={handleChange}
+      />
+      <p>You typed: {text}</p>
+    </div>
+  );
+}
+
+export default Ques_2_Text_Input_and_Display;
