@@ -1,5 +1,4 @@
-// Creating a Simple Express Server
-// Description: Write a simple Express server that listens on port 3000.
+// 2_sample_express_server.js
 
 const express = require('express');
 const app = express();
@@ -9,6 +8,14 @@ app.get('/', (req, res) => {
   res.send('Hello from Express server!');
 });
 
-app.listen(port, () => {
-  console.log(`Server is listening on http://localhost:${port}`);
-});
+if (require.main === module) {
+  app.listen(port, (err) => {
+    if (err) {
+      console.error('Error starting server:', err);
+    } else {
+      console.log(`Server is listening on http://localhost:${port}`);
+    }
+  });
+}
+
+module.exports = app;
