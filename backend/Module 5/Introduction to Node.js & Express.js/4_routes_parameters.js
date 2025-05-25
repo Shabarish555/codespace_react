@@ -1,38 +1,26 @@
+// backend/Module 5/1ntroduction to Node.js & Express.js/4_routes_parameters.js
+
 const express = require('express');
 const app = express();
 
-/* ----------------- */
-/* Home page route   */
-/* ----------------- */
+// Route with parameter ':id'
+app.get('/user/:id', (req, res) => {
+  const userId = req.params.id; // access route parameter
+  res.send(`User ID requested is: ${userId}`);
+});
+
+// Example route without parameter
 app.get('/', (req, res) => {
   res.send('Welcome to the home page!');
 });
 
-/* --------------------------- */
-/* Route: Get user by ID param */
-/* --------------------------- */
-app.get('/user/:id', (req, res) => {
-  const userId = req.params.id;
-  res.send(`User ID requested is: ${userId}`);
-});
-
-/* ------------------------- */
-/* Error handling middleware  */
-/* ------------------------- */
+// Error handling middleware
 app.use((err, req, res, next) => {
   console.error('Unhandled error:', err);
-
-  // Example of more specific error handling
-  if (err.type === 'entity.parse.failed') {
-    return res.status(400).send('Bad Request: Invalid JSON');
-  }
-
   res.status(500).send('Internal Server Error');
 });
 
-/* ------------------------- */
-/* Start server if run direct */
-/* ------------------------- */
+// Start server only if run directly
 if (require.main === module) {
   const PORT = process.env.PORT || 3000;
   app.listen(PORT, () => {
