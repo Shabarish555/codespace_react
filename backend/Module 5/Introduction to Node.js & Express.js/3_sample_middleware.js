@@ -5,21 +5,32 @@ const app = express();
 
 // Middleware to log all incoming requests
 app.use((req, res, next) => {
-  console.log(`[${new Date().toISOString()}] ${req.method} ${req.originalUrl}`);
-  next(); // pass control to the next middleware/route handler
+  try {
+    console.log(`[${new Date().toISOString()}] ${req.method} ${req.originalUrl}`);
+    next();
+  } catch (error) {
+    next(error); // Pass errors to error handling middleware
+  }
 });
 
-// Example route to test middleware
+// Example route
 app.get('/', (req, res) => {
   res.send('Hello World!');
 });
 
+// Error handling middleware (must come after all other middleware/routes)
+app.use((err, req, res, next) => {
+  console.error('Unhandled error:', err);
+  res.status(500).send('Internal Server Error');
+});
+
 // Start server only if this file is run directly
 if (require.main === module) {
-  const PORT = 3000;
+  const PORT = process.env.PORT || 3000;
   app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);
   });
 }
 
-module.exports = app; // export the app for testing or further use
+module.exports = app;
+
